@@ -1,11 +1,13 @@
 package _02_File_Encrypt_Decrypt;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class FileDecryptor {
 	/*
@@ -29,25 +31,29 @@ public class FileDecryptor {
 	
 	public static void main(String[] args) {
 		//get file
-		FileEncryptor FE = new FileEncryptor();
-		FE.main(args);
-		
-		
+		JFileChooser jfc = new JFileChooser();
+		int returnVal = jfc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String fileName = jfc.getSelectedFile().getAbsolutePath();
+			String message = fileName;//"mrbfh"; // = fw;
+			String undoMessage = "";
+			char key = 3;
+			for (int i = 0; i < message.length(); i++) {
+				if((char) (message.charAt(i) - key) < 'a') {
+					undoMessage += ((char) (message.charAt(i) - key + 26));
+				}
+				else {
+					undoMessage += (char) (message.charAt(i) - key);
+				}
+			}
+			
+			JOptionPane.showMessageDialog(null, undoMessage);
+			System.out.println(undoMessage);
+			//System.out.println(fileName);
+		}
 		
 		//decrypt file
 		
-		String message = "mrbfh"; // = fw;
-		String undoMessage = "";
-		char key = 3;
-		for (int i = 0; i < message.length(); i++) {
-			if((char) (message.charAt(i) - key) < 'a') {
-				undoMessage += ((char) (message.charAt(i) - key + 26));
-			}
-			else {
-				undoMessage += (char) (message.charAt(i) - key);
-			}
-		}
 		
-		System.out.println(undoMessage);
 	}
 }

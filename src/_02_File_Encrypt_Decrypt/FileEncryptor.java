@@ -40,6 +40,7 @@ public class FileEncryptor {
 		System.out.println(newMessage);
 		try {
 			FileWriter fw = new FileWriter(newMessage);
+			
 				
 			fw.close();
 		} catch (IOException e) {
