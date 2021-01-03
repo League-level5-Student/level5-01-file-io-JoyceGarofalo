@@ -30,29 +30,39 @@ public class FileDecryptor {
 	 */
 	
 	public static void main(String[] args) {
-		//get file
-		JFileChooser jfc = new JFileChooser();
-		int returnVal = jfc.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			String fileName = jfc.getSelectedFile().getAbsolutePath();
-			String message = fileName;//"mrbfh"; // = fw;
-			String undoMessage = "";
-			char key = 3;
-			for (int i = 0; i < message.length(); i++) {
-				if((char) (message.charAt(i) - key) < 'a') {
-					undoMessage += ((char) (message.charAt(i) - key + 26));
-				}
-				else {
-					undoMessage += (char) (message.charAt(i) - key);
-				}
+		String Encrmessage = "";
+
+		try {
+			FileReader fr = new FileReader("encrypted.txt");
+			int c = fr.read();
+			Encrmessage += (char) c;
+			while(c != -1){
+				//System.out.print(c);
+				c = fr.read();
+				Encrmessage += (char) c;
 			}
+			fr.close();
 			
-			JOptionPane.showMessageDialog(null, undoMessage);
-			System.out.println(undoMessage);
-			//System.out.println(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		//decrypt file
+		
+		String undoMessage = "";
+		char key = 3;
+		for (int i = 0; i < Encrmessage.length(); i++) {
+			if((char) (Encrmessage.charAt(i) - key) < 'a') {
+				undoMessage += ((char) (Encrmessage.charAt(i) - key + 26));
+			 }
+			else {
+				undoMessage += (char) (Encrmessage.charAt(i) - key);
+			}
+		}
+			
+		JOptionPane.showMessageDialog(null, undoMessage);
+		System.out.println(undoMessage);
 		
 		
 	}

@@ -39,8 +39,8 @@ public class FileEncryptor {
 		
 		System.out.println(newMessage);
 		try {
-			FileWriter fw = new FileWriter(newMessage);
-			
+			FileWriter fw = new FileWriter("encrypted.txt");
+			fw.write(newMessage);
 				
 			fw.close();
 		} catch (IOException e) {
