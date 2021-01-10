@@ -2,6 +2,9 @@ package _03_To_Do_List;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +42,7 @@ public class ToDoList implements ActionListener{
 	JButton button3 = new JButton();
 	JButton button4 = new JButton();
 	JButton button5 = new JButton();
+	ArrayList<String> arr = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		ToDoList list = new ToDoList();
@@ -73,7 +77,6 @@ public class ToDoList implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		JButton pressed = (JButton) e.getSource();
-		ArrayList<String> arr = new ArrayList<>();
 		
 		if(pressed == button1) {
 			String enteredtask = JOptionPane.showInputDialog("enter a task");
@@ -85,7 +88,7 @@ public class ToDoList implements ActionListener{
 		if(pressed == button3) {
 			String removingtask = JOptionPane.showInputDialog("what task do you want removed?");
 			for (int i = 0; i < arr.size(); i++) {
-				if(arr.get(i) == removingtask) {
+				if(arr.get(i).equals(removingtask)) {
 					arr.remove(arr.get(i));
 				}
 			}
@@ -97,6 +100,7 @@ public class ToDoList implements ActionListener{
 				
 				for (int i = 0; i < arr.size(); i++) {
 					fw.write(arr.get(i));
+					fw.write("\n");
 				}
 					
 				fw.close();
@@ -106,7 +110,25 @@ public class ToDoList implements ActionListener{
 		}
 		if(pressed == button5) {
 			String location = JOptionPane.showInputDialog("where is the file located?");
-			//not done
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(location));
+				arr.clear();
+				String line = br.readLine();
+				arr.add(line);
+				while(line != null){
+					System.out.println(line);
+					line = br.readLine();
+					arr.add(line);
+				}
+				
+				br.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}
