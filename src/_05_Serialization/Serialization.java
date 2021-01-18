@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class Serialization {
 	private static final String DATA_FILE = "src/_04_Serialization/saved.dat";
 
-	@Test
+	@Test 
 	public void test() {
 		String name = "Jeff";
 		int age = 32;
